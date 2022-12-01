@@ -65,11 +65,16 @@ variable "organization" {
     description             = optional(string, "Terraform-managed")
     authorized_network      = optional(string)
     runtime_type            = optional(string, "CLOUD")
-    billing_type            = optional(string)
     database_encryption_key = optional(string)
     analytics_region        = optional(string, "europe-west1")
   })
   default = null
+}
+
+variable "org_billing_type" {
+  description = "Billing type of the Apigee Organization. Billing type should be \"PAYG\" for Pay-As-You-Go, \"EVALUATION\" for Eval, and \"SUBSCRIPTION\" for Paid Apigee Organization."
+  type        = string
+  default     = null
 }
 
 variable "project_id" {

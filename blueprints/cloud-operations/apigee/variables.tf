@@ -63,13 +63,18 @@ variable "organization" {
     description             = optional(string, "Apigee organization created by tf module")
     authorized_network      = optional(string, "vpc")
     runtime_type            = optional(string, "CLOUD")
-    billing_type            = optional(string)
     database_encryption_key = optional(string)
     analytics_region        = optional(string, "europe-west1")
   })
   nullable = false
   default = {
   }
+}
+
+variable "org_billing_type" {
+  description = "Billing type of the Apigee Organization. Billing type should be \"PAYG\" for Pay-As-You-Go, \"EVALUATION\" for Eval, and \"SUBSCRIPTION\" for Paid Apigee Organization."
+  type        = string
+  default     = null
 }
 
 variable "path" {

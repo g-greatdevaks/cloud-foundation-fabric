@@ -27,7 +27,7 @@ resource "google_apigee_organization" "organization" {
   analytics_region                     = var.organization.analytics_region
   project_id                           = var.project_id
   authorized_network                   = var.organization.authorized_network
-  billing_type                         = var.organization.billing_type
+  billing_type                         = var.org_billing_type
   runtime_type                         = var.organization.runtime_type
   runtime_database_encryption_key_name = var.organization.database_encryption_key
 }
@@ -45,7 +45,7 @@ resource "google_apigee_environment" "environments" {
   display_name = each.value.display_name
   description  = each.value.description
   dynamic "node_config" {
-    for_each = try(each.value.node_config, null) != null ? [""] : []
+    for_each = try(each.value.node_config, null) != null && var.org_billing_type == "PAYG" ? [""] : []
     content {
       min_node_count = each.value.node_config.min_node_count
       max_node_count = each.value.node_config.max_node_count
